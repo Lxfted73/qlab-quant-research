@@ -25,7 +25,6 @@ Typical usage:
     store.write('AAPL', df)                     # asset_class is assumed 'equities'
     recent = store.query('AAPL', '2025-01-01', '2026-01-19')
 """
-
 import pandas as pd
 import polars as pl
 import os

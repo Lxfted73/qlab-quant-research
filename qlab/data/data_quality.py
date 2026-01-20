@@ -1,3 +1,30 @@
+"""
+Data Quality Checker for Stock OHLCV Data
+-----------------------------------------
+
+Purpose:
+    Analyzes and fixes quality issues in fetched stock price data from sources like yfinance.
+    Checks completeness, accuracy, timeliness, and outliers.
+
+Key Features:
+    - Completeness: Detects missing trading days, NaN streaks, and missing values.
+    - Accuracy: Validates non-positive prices/volume and suspicious split adjustments.
+    - Timeliness: Checks if data is up-to-date (within 3 days of latest trading day).
+    - Outliers: Identifies extreme daily returns (>6 std devs).
+    - Fixing: Deduplicates, forward-fills limited NaNs, drops all-NaN rows.
+    - Uses NYSE calendar for expected trading days.
+
+Dependencies:
+    - pandas, numpy
+    - pandas_market_calendars
+    - DataFetcher (for data retrieval)
+
+Usage:
+    checker = QualityChecker()
+    report = checker.check('AAPL', start_date='2025-01-01')
+    fixed_df = checker.fix('AAPL', start_date='2025-01-01', forward_fill=True)
+"""
+
 import pandas as pd
 import numpy as np
 from datetime import datetime

@@ -1,13 +1,13 @@
 """
-ETF/Stock Data Fetcher - Incremental Updater with Duplicate Removal & Stable Files
-─────────────────────────────────────────────────────────────────────────────────
+ETF/Stock Data Fetcher - Incremental Updater with Smart 1m Handling & Duplicate Removal
+───────────────────────────────────────────────────────────────────────────────────────
 
 Purpose:
     Fetches OHLCV bars from Yahoo Finance.
-    - Incremental: appends only new data since last saved date
+    - Incremental append: only new data since last saved date
     - Stable filenames: one file per ticker + interval
-    - Removes duplicates on append (exact + timestamp conflicts)
-    - Auto-handles short intraday history limits
+    - Removes duplicates on append
+    - Smart 1m: auto-uses short period ("7d") when no period given
 
 Dependencies:
     - yfinance
