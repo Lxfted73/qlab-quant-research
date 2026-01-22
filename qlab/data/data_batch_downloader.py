@@ -34,7 +34,7 @@ import yfinance as yf
 # Then pass session=session to yf.download(...)
 
 # ── GLOBAL CONFIGURATION ─────────────────────────────────────────────────────
-INTERVAL = "1m"                         # "1d", "1wk", "1m", "5m", etc.
+INTERVAL = "1d"                         # "1d", "1wk", "1m", "5m", etc.
 
 # Automatic lookback logic based on interval
 if INTERVAL in ["1m", "2m", "5m", "15m", "30m", "60m", "90m"]:
