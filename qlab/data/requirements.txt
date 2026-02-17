@@ -1,0 +1,15 @@
+# requirements.txt - Financial Data Pipeline (2026 compatible versions)
+
+pandas>=2.2.2
+numpy>=1.26.4
+polars>=1.9.0
+yfinance>=0.2.61
+ratelimit>=2.2.1
+pyarrow>=17.0.0
+pandas_market_calendars>=4.5.0
+matplotlib>=3.9.2
+tqdm>=4.66.1
+pytest>=7.4.2 
+seaborn>=0.13.2
+duckdb>=0.8.1
+pyarrow>=17.0.0
