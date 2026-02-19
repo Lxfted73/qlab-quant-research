@@ -483,12 +483,19 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
         description="Yahoo Finance batch fetcher – prices + fundamentals",
-        epilog="Examples:\n"
-               "  python fetch.py 1                     # batch 1, prices only\n"
-               "  python fetch.py 1 --fundamentals      # batch 1, prices + fundamentals\n"
-               "  python fetch.py 1 5 --fundamentals    # batches 1–5 with fundamentals\n"
-               "  python fetch.py 1 --fundamentals --force  # force full re-fetch"
-    )
+        epilog="""Examples:
+            python fetch.py 1                              → prices only (daily, batch 1)
+            python fetch.py 1 --fundamentals               → prices + fundamentals (batch 1)
+            python fetch.py 1 5 --fundamentals             → prices + fundamentals (batches 1–5)
+            python fetch.py 1 --fundamentals --force       → force full re-fetch (batch 1)
+            python fetch.py 1 --interval 1d --skip-prices 7                → daily prices, refresh > 7d old (batch 1)
+            python fetch.py 10 12 --interval 1m --skip-prices 2            → 1m bars, prices refresh > 2d old (batches 10–12)
+            python fetch.py 5 --interval 1wk --skip-prices 30 --fundamentals → weekly + fundamentals, prices > 30d (batch 5)
+            python fetch.py 1 20 --interval 1d --fundamentals --skip-prices 3 --skip-fund 45 → daily + fund, prices > 3d / fund > 45d (batches 1–20)
+            python fetch.py 3 5 --interval 1d --fundamentals --skip-prices 7 --skip-fund 0 → daily + fund, prices skip < 7d, force fund (batches 3–5)
+            python fetch.py 8 --interval 5m --skip-prices 1 --fundamentals → 5m bars + fundamentals, prices > 1d old (batch 8)
+            """
+            )
 
     parser.add_argument("start", type=int, nargs="?", default=1, help="Start batch")
     parser.add_argument("end",   type=int, nargs="?", default=None, help="End batch (default = start)")

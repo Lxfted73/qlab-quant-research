@@ -1,22 +1,22 @@
 import pandas as pd
 from pathlib import Path
-import numpy as np
 
-folder = Path("data/yfinance/1d")          # or /1m, etc.
-parquets = list(folder.glob("*.parquet"))
+ticker = "AAPL"
+bs_path = Path("market_data/yfinance/fundamentals/balance_sheet") / f"{ticker}.parquet"
 
-print(f"Found {len(parquets)} files\n")
-
-# Quick stats on a few random tickers
-sample_files = np.random.choice(parquets, size=min(8, len(parquets)), replace=False)
-
-for p in sample_files:
-    df = pd.read_parquet(p)
-    if df.empty:
-        print(f"EMPTY: {p.name}")
-        continue
-        
-    print(f"{p.stem:>8}  |  rows: {len(df):>6,}  |  date range: {df.index.min().date()} – {df.index.max().date()}")
-    print(f"         |  NaN Close: {df['Close'].isna().sum():3d}  |  zero/neg Close: {(df['Close'] <= 0).sum():3d}")
-    print(f"         |  zero Volume days: {(df['Volume'] <= 0).sum():3d}")
-    print()
+if bs_path.exists():
+    df = pd.read_parquet(bs_path)
+    print(f"Shape: {df.shape}")
+    print("Index type:", df.index.dtype)
+    print("Index range:", df.index.min(), "→", df.index.max())
+    print("Columns:", list(df.columns))
+    print("\nSample rows (head + tail):")
+    print(df.head(8))
+    print("...")
+    print(df.tail(8))
+    
+    # Look for total assets variants
+    asset_cols = [c for c in df.columns if "asset" in c.lower() or "total" in c.lower()]
+    print("\nPotential asset columns:", asset_cols)
+else:
+    print(f"File missing: {bs_path}")
